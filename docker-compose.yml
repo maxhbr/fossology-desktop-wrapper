@@ -1,14 +1,13 @@
-# FOSSology Docker Compose file
+# **modified** FOSSology Docker Compose file
 # Copyright Siemens AG 2016, fabio.huser@siemens.com
 # Copyright TNG Technology Consulting GmbH 2016-2017, maximilian.huber@tngtech.com
+# Copyright 2020 Maximilian Huber <gh@maximilian-huber.de>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
-#
-# Description: Recipe for setting up a multi container FOSSology
-#              Docker setup with separate Database instance
+
 version: '3.5'
 services:
   scheduler:
