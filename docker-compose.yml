@@ -11,7 +11,7 @@
 version: '3.5'
 services:
   scheduler:
-    image: fossology/fossology
+    image: fossology/fossology:3.11.0
     restart: unless-stopped
     environment:
       - FOSSOLOGY_DB_HOST=db
@@ -29,7 +29,7 @@ services:
       timeout: 5s
       retries: 2
   web:
-    image: fossology/fossology
+    image: fossology/fossology:3.11.0
     restart: unless-stopped
     environment:
       - FOSSOLOGY_DB_HOST=db
