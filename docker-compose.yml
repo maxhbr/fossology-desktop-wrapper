@@ -1,7 +1,7 @@
 # **modified** FOSSology Docker Compose file
 # Copyright Siemens AG 2016, fabio.huser@siemens.com
 # Copyright TNG Technology Consulting GmbH 2016-2017, maximilian.huber@tngtech.com
-# Copyright 2020 Maximilian Huber <gh@maximilian-huber.de>
+# Copyright 2020-2021 Maximilian Huber <gh@maximilian-huber.de>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -23,6 +23,11 @@ services:
       - db
     volumes:
       - ./repository:/srv/fossology/repository/
+    healthcheck:
+      test: ["CMD-SHELL", "true"]
+      interval: 5s
+      timeout: 5s
+      retries: 2
   web:
     image: fossology/fossology
     restart: unless-stopped
@@ -40,6 +45,11 @@ services:
       - scheduler
     volumes:
       - ./repository:/srv/fossology/repository/
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sSf localhost/repo/api/v1/version || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   db:
     image: postgres:9.6
     restart: unless-stopped
@@ -50,6 +60,12 @@ services:
       - POSTGRES_INITDB_ARGS='-E SQL_ASCII'
     volumes:
       - ./database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --dbname $$POSTGRES_DB --username $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      # start-period: 10s
 
 volumes:
   database:
